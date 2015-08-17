@@ -1,13 +1,84 @@
-<!DOCTYPE html>
-<html ng-app>
-  <head>
-    <meta charset="utf-8">
-    <title>Reddit for Normals</title>
-    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
-  </head>
-  <body>
+<!doctype html>
+<html lang="en" ng-app="redditApp" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <title>Reddit Clone</title>
+    <link rel="stylesheet" href="http://reset5.googlecode.com/hg/reset.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body ng-controller="Reddit">
 
-  </body>
-  <script type="text/javascript" src="app.js"></script>
-  <script src="https://bower_components/angular/angular.js">
+
+<nav>
+    Reddit Clone
+    <span ng-click="show()"><i class="fa fa-plus"></i>Submit Post</span>
+    <input type="text" class="search" placeholder="Search" ng-model="search"/>
+    <!--Results will fade in an out-->
+    Sort by <select name="articles" id="articles" ng-model="selected" ng-init="selected = '-votes'">
+              <option value="-votes">votes</option>
+              <option value="date">date</option>
+              <option value="title">title</option>
+            </select>
+</nav>
+
+
+    <form ng-submit="submitPost()" ng-show="form > 0">
+        <p>
+            <label for="title">Title</label><br>
+            <input type="text" id="title" placeholder="Title" ng-model="title" required>
+        </p>
+        <p>
+            <label for="author">Author</label><br>
+            <input type="text" id="author" placeholder="Author" ng-model="author" required>
+        </p>
+        <p>
+            <label for="image">Image URL</label><br>
+            <input type="text" id="image" placeholder="Image URL" ng-model="image" required>
+        </p>
+        <p>
+            <label for="description">Description</label><br>
+            <input type="text" id="description" placeholder="Description" ng-model="description" required>
+        </p>
+
+        <input type="submit" value="Submit Post">
+    </form>
+
+
+<article ng-repeat="info in articles | filter: search | orderBy: selected">
+    <!--order by votes is standard-->
+    <img ng-src="{{info.image}}" alt="image" height="150" width="200"/><br>
+    <h1>{{info.title}}</h1><br>
+    <i class="fa fa-arrow-up" ng-click="upVote(info)"></i><i class="fa fa-arrow-down" ng-click="downVote(info)"></i><span ng-class="{pos: info.votes > 0, neg: info.votes < 0}"><h2>{{info.votes}}</h2></span><br>
+    <!--This will have a class to change from green to red if num is pos or neg/ 0 = black-->
+    By: {{info.author}}<br>
+    <p>{{info.description}}</p><br>
+    <i class="fa fa-calendar"></i> {{info.date | date: 'EEEE, MMMM dd, yyyy'}} | <i class="fa fa-comments"></i> {{comments}} | <button ng-onclick="addComment()"><i class="fa fa-pencil"></i> Add Comment</button>
+
+    <!--These will need a count depending on how many comments are added-->
+    <!--comments will display in here, toggle on show/hide when clicked, these are pluralized correctly depending on the number of comments-->
+    <div ng-hide="comment">
+        This is where comments will display
+    </div>
+    <!--add comment is also toggled in this section with author and text, fades in on submit-->
+    <div ng-hide="{4+4=8}">
+        {{comments}}
+        Author: <input type="text" placeholder="Name"/> Comment: <input type="text" placeholder="comments here"/>
+        <input type="submit" name="name" value="Add your comment" ng-click="addComment">
+    </div>
+</article>
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js"></script>
+<script src="angular-sanitize.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<!-- <script src="http://code.onion.com/fartscroll.js"></script>
+<script type="text/javascript">
+  fartscroll(5);
+</script> -->
+
+</body>
 </html>

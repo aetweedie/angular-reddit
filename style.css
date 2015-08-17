@@ -1,0 +1,57 @@
+*, *:before, *:after {
+box-sizing: border-box;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+h2 {
+  display: inline;
+}
+
+nav {
+  background: #f6f4f6;
+  border: 1px solid darkgrey;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px; }
+
+form {
+  margin-bottom: 30px;
+  margin-left: 30px; }
+
+article {
+  background: #f6f4f6;
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+  width: 90%;
+  padding: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+img {
+  border: 1px solid darkgrey;
+  float: left;
+  margin-right: 10px;
+}
+
+input {
+  padding: 5px;
+  border-radius: 7px;
+  border: 0;
+  border: 1px solid darkgrey; }
+
+select {
+  border: 0; }
+
+.pos {
+  color: green; }
+
+.neg {
+  color: red; }
